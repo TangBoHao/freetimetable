@@ -37,6 +37,10 @@ $rewrong2=array(
 	"code"=>403,
 	"message"=>"学号或密码输入错误"
 	);
+$rewrong3=array(
+	"code"=>406,
+	"message"=>"该成员信息已存在"
+	);
 if(!$testdata->status)
 {
 	echo json_encode($rewrong1,JSON_UNESCAPED_UNICODE);
@@ -101,7 +105,7 @@ $rawdata=json_encode($eachfreetime);
 
 
 $remessage=array(
-	"code"=>"200",
+	"code"=>200,
 	"message"=>"添加成员信息成功"
 	);
 
@@ -123,7 +127,9 @@ $sql = "INSERT INTO course(id,username,openid,courseinfo)
 if ($conn->query($sql) === TRUE) {
     echo $remessage;
 } else {
-    echo "插入数据出现问题: " . $conn->error;
+   // echo "插入数据出现问题: " . $conn->error;
+	echo json_encode($rewrong3,JSON_UNESCAPED_UNICODE);
+	exit;
 }
 
 
