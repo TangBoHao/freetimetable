@@ -1,0 +1,35 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+html{
+	overflow-x: hidden;
+}
+html,body,#menu,#con,.row{
+	height: 100%;
+}
+#nav{
+	height: 70px;
+	box-shadow: 0px 0px 10px 1px gray;
+}
+.nav li:first-child{
+	margin-top: 40px;
+}
+#con{
+	margin-top: 70px;
+}
+#menu{
+	position: fixed;
+	box-shadow: 0px 0px 5px 3px gray;
+}
+.margin_top{
+	margin-top: 3em;
+}
+input[type="number"]{
+	-moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}

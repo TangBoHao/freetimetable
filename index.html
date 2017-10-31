@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>社团排班系统</title>
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="navbar navbar-default navbar-custom navbar-fixed-top" id="nav">
+		<h1 class="lead text-center">社团排班系统</h1>
+	</div>
+	<div class="container-fluid" id="con">
+		<div class="row">
+			<div class="col-xs-4 col-sm-3 col-md-2" id="menu">
+				<nav class="menu menu-left nav-drawer nav-drawer-md">
+					<div class="menu-content">
+						<ul class="nav">
+							<li><a href="#" @click="tochange('showTable')"><big>{{ first }}</big></a></li>
+							<li><a href="#" @click="tochange('addMember')"><big>{{ second }}</big></a></li>
+							<li><a href="#" @click="tochange('About')"><big>{{ third }}</big></a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="col-xs-8 col-sm-7 col-md-9 col-xs-offset-4 col-sm-offset-3 col-md-offset-2 margin_top">
+				<div class="container">
+					<div id="showTable">
+						<div class="table-responsive">
+							<select style="height: 142px" multiple="multiple" class="form-control input-lg" v-model="selected">
+								<template>
+									<option  v-for="n in options" v-text="n.option" :value="n.value" :selected="selected"></option>
+								</template>
+							</select>
+							<div id="selection"><hr>
+								<template v-for="f in form">
+									<div style="display: none" class="selection_order">
+										<template v-for="n in f">
+											<span>
+											<input :type="n.type" v-on:keyup="filterInput($event.target)" v-on:blur="checkNumber($event.target)" :placeholder="n.placeholder" :name="n.name" class="form-control input-lg">
+											</span><br>
+										</template>
+									</div>
+								</template>
+								<div style="display: none" id="queryInfo" :queryInfo="Info"><p class="input-lg">{{ Info }}</p></div>
+								<button id="query" class="btn btn-info btn-lg btn-block" v-on:click="query" :button="button">{{ button }}</button>
+							</div>
+							<hr>
+
+							<p style="display: none" class="input-lg text-center" id="weekOfTable" :weekOfTable="weekOfTable">{{ weekOfTable }}</p>
+							<table style="display: none" class="table table-striped text-center table-hover">
+								<tbody>
+									<template>
+										<tr v-for="tr in dataOfTable" class="input-lg">
+											<td v-for="td in tr">{{ td }}</td>
+										</tr>
+									</template>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="addMember" style="display: none">
+						<div class="form-group">
+							<template v-for="i in input">
+								<template v-for="n in i">
+									<span>
+									<input :type="n.type" v-on:keyup="filterInput($event.target)" v-on:blur="checkInput($event.target)" class="form-control input-lg" :name="n.name" :placeholder="n.placeholder">
+									</span><br>
+								</template>
+							</template>
+						</div>
+						<button class="btn btn-info btn-lg btn-block" :button="button" v-on:click="onSubmit" type="submit">{{ button }}</button>
+					</div>
+					<div id="About" style="display: none">
+						<p class="input-lg">
+							社团自动排班系统使用指南
+						</p>
+						<p style="text-indent: 4em;">
+							从教务系统获取所添加人员当前的课表，从而获取其空余时间进行值班时间的调度。（目前仅支持中南民族大学）
+						</p>
+						<p class="input-lg">
+							使用步骤：<br>
+							<ol style="margin-left: 4em;">
+								<li>添加人员（正确输入学号、密码、姓名）</li>
+								<li>通过首页选项进行对应操作</li>
+								<li>若为学校为中南民大则可以选择复制排班表到每周，系统自动排出空余时间</li>
+							</ol>
+						</p>
+						<p class="input-lg">
+							有任何问题请致邮：vvzt666666@foxmail.com
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="bootstrap/js/jquery-3.1.0.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
