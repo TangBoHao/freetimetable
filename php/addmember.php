@@ -7,23 +7,22 @@ error_reporting(0);
 
 
 $id=$_POST['id'];
-$key=$_POST['key'];
-$openid=$_POST['openid'];
 $name=$_POST['name'];
 
 if(!$id)
 {
-	$id=$_GET['id'];
-$key=$_GET['key'];
-$openid=$_GET['openid'];
+$id=$_GET['id'];
+
 $name=$_GET['name'];
 
 }
 
-$getcourse=curl_init("http://zixunminda.stuzone.com/src/API/get_timetable_temp.php?key=LKJFI30jf&id=$id&token=$key");
-curl_setopt($getcourse, CURLOPT_RETURNTRANSFER, 1);
+$getcourse=curl_init("https://wechat.stuzone.com/iscuecer/lab_query/src/API/time_table_api_for_xuehao.php?account='$id'");
+curl_setopt($getcourse, CURLOPT_RETURNTRANSFER, 1);  //讲结果放在执行返回值中
+curl_setopt($getcourse,CURLOPT_SSL_VERIFYPEER,FALSE); // https请求 不验证证书和hosts
+curl_setopt($getcourse,CURLOPT_SSL_VERIFYHOST,FALSE);
 $re=curl_exec($getcourse);
-
+//echo $re;
 $testdata=$re;
 $testdata=json_decode($testdata);
 
@@ -46,7 +45,7 @@ if(!$testdata->status)
 	echo json_encode($rewrong1,JSON_UNESCAPED_UNICODE);
 	exit;
 }
-if($testdata->status==403||$testdata->status==407)
+if($testdata->status!=200)
 {
 	echo json_encode($rewrong2,JSON_UNESCAPED_UNICODE);
 	exit;
@@ -122,12 +121,12 @@ if ($conn->connect_error) {
 } 
 
 mysqli_set_charset($conn,"utf8");
-$sql = "INSERT INTO course(id,username,openid,courseinfo)
- VALUES ('$id','$name','$openid','$rawdata')";
+$sql = "INSERT INTO course(id,username,courseinfo)
+ VALUES ('$id','$name','$rawdata')";
 if ($conn->query($sql) === TRUE) {
     echo $remessage;
 } else {
-   // echo "插入数据出现问题: " . $conn->error;
+    //echo "插入数据出现问题: " . $conn->error;
 	echo json_encode($rewrong3,JSON_UNESCAPED_UNICODE);
 	exit;
 }

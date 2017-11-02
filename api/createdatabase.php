@@ -1,5 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "123456";
@@ -40,7 +41,6 @@ if ($conn->connect_error) {
 $sql = "CREATE TABLE course (
 id VARCHAR(20) PRIMARY KEY, 
 username VARCHAR(30) NOT NULL,
-openid VARCHAR(100) NOT NULL,
 courseinfo VARCHAR(50000) NOT NULL,
 reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8";

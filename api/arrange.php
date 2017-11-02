@@ -3,8 +3,7 @@ header("Access-Control-Allow-Origin:*");    //允许访问的域名，*表示所
 header("Access-Control-Allow-Methods:POST,GET");		//允许访问的请求方式
 //header("Content-type: application/html; charset=utf-8");
 header("Content-type: text/html; charset=utf-8");
-
-
+error_reporting(0);
 $id=$_POST['id'];
 $name=$_POST['name'];
 $week=$_POST['week'];
@@ -35,7 +34,7 @@ function insertdb($week,$day,$section,$data)
 	$day="day"."$day";
 	
 	mysqli_set_charset($conn,"utf8");
-	$sql = " update $week set $day='$data' where section=$section;";
+	$sql = "update $week set $day='$data' where section=$section";
 	if ($conn->query($sql) === TRUE) {
    			 // echo "success";
    			 // echo "第"."$day"."天"."第"."$section"."个时间段";
